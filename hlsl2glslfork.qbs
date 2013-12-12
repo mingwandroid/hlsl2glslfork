@@ -141,12 +141,10 @@ Project {
 
     StaticLibrary {
         name: "hlsl2glsl"
-        /*
-        Changing maintainerMode from true to false requires
-        that you remove the old build folder, otherwise you
-        will get errors such as:
-        evaluating prepare script: TypeError: Result of expression 'config' [undefined] is not an object.'
-        */
+        /*  Changing maintainerMode from true to false requires
+            that you remove the old build folder, otherwise you
+            will get errors such as:
+            evaluating prepare script: TypeError: Result of expression 'config' [undefined] is not an object.' */
         property bool maintainerMode: true
         property string OSDepPath: {
             if (qbs.targetOS.contains("windows"))
@@ -232,9 +230,9 @@ Project {
                                        "Generated/hlslang/MachineIndependent"])
         Properties {
             condition: !qbs.toolchain.contains("msvc")
-            // Annoyingly, a bug in flex forces -Wno-sign-compare into this list:
-            // http://sourceforge.net/p/flex/bugs/140/
-            // It may be possible to isolate this flag specifically to Gen_hlslang.cpp?
+            /* Annoyingly, a bug in flex forces -Wno-sign-compare into this list:
+               http://sourceforge.net/p/flex/bugs/140/
+               It may be possible to isolate this flag specifically to Gen_hlslang.cpp? */
             cpp.commonCompilerFlags: base.concat(["-Wno-unused-parameter", "-Wno-sign-compare", "-Werror"])
         }
         Properties {
