@@ -149,7 +149,7 @@ public:
 #endif
 #endif
 
-#ifndef _WIN32
+#ifndef _MSC_VER
       template<class Other>
          pool_allocator(const pool_allocator<Other>& p) : allocator(&p.getAllocator()) { }
 #endif

@@ -146,6 +146,14 @@ Project {
             will get errors such as:
             evaluating prepare script: TypeError: Result of expression 'config' [undefined] is not an object.' */
         property bool maintainerMode: true
+        property bool minGW: {
+            if (qbs.targetOS.contains("windows")) {
+                if (qbs.toolchain.contains("gcc"))
+                    return true;
+            }
+            return false;
+        }
+
         property string OSDepPath: {
             if (qbs.targetOS.contains("windows"))
                 return "Windows";
@@ -229,6 +237,12 @@ Project {
                                        "hlslang/OSDependent/"+OSDepPath,
                                        "Generated/hlslang/MachineIndependent"])
         Properties {
+            /* The bundled Windows Bison generates code
+               that compiles with warnings on MinGW-w64. */
+            condition: minGW
+            cpp.commonCompilerFlags: base.concat(["-Wno-unused-parameter", "-Wno-sign-compare", "-Wno-format"])
+        }
+        Properties {
             condition: !qbs.toolchain.contains("msvc")
             /* Annoyingly, a bug in flex forces -Wno-sign-compare into this list:
                http://sourceforge.net/p/flex/bugs/140/
@@ -249,7 +263,7 @@ Project {
         Depends { name: "cpp" }
         property stringList StaticLibs: {
             if (qbs.targetOS.contains("windows"))
-                return ["opengl32", "Gdi32.lib", "User32.lib"];
+                return ["opengl32", "gdi32", "user32"];
             else if (qbs.targetOS.contains("linux"))
                 if (qbs.toolchain.contains("clang"))
                     return ["GLEW", "GLU", "GL", "glut", "pthread"];

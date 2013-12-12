@@ -35,6 +35,7 @@ I           [uUlL]
 #include <stdlib.h>
 #include "ParseHelper.h"
 #include "hlslang_tab.h"
+#include "string.h"
 
 /* windows only pragma */
 #ifdef _MSC_VER

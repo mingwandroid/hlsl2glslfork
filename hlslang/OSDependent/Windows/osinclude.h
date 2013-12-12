@@ -17,7 +17,9 @@
 
 #define STRICT
 #define VC_EXTRALEAN 1
+#ifdef _MSC_VER
 #define NOMINMAX
+#endif
 #include <windows.h>
 #include <assert.h>
 
