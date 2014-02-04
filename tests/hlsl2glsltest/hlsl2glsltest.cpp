@@ -96,7 +96,7 @@ static StringVector GetFiles (const std::string& folder, const std::string& ends
 {
 	StringVector res;
 
-	#ifdef _MSC_VER
+    #ifdef _WIN32
 	WIN32_FIND_DATAA FindFileData;
 	HANDLE hFind = FindFirstFileA ((folder+"/*"+endsWith).c_str(), &FindFileData);
 	if (hFind == INVALID_HANDLE_VALUE)
@@ -179,7 +179,7 @@ static bool InitializeOpenGL ()
 	
 	bool hasGLSL = false;
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 	// setup minimal required GL
 	HWND wnd = CreateWindowA(
 		"STATIC",
