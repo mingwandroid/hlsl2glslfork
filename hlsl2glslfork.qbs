@@ -254,6 +254,11 @@ Project {
             cpp.commonCompilerFlags: base.concat(["/WX"])
             cpp.defines: ["_USING_V110_SDK71_"]
         }
+        Export {
+                Depends { name: "cpp" }
+                cpp.includePaths: "./include"
+                cpp.defines: "HLSL2GLSL_CONVERSION"
+        }
     }
 
     Application {
